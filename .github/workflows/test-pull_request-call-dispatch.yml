@@ -4,6 +4,7 @@ on: pull_request
 
 env:
   PR_NUMBER: ${{ github.event.number }}
+  GITHUB_TOKEN: ${{ github.TOKEN }}
   TEST_SECRET: ${{ secrets.TEST_SECRET }}
 
 jobs:
