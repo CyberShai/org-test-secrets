@@ -11,6 +11,9 @@ jobs:
   build-info-job:
     runs-on: ubuntu-20.04
     steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      
       - name: Build info
         run: |
           echo "Executing gh command"
