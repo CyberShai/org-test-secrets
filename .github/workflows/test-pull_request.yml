@@ -4,6 +4,7 @@ on: pull_request
 
 env:
   TEST_SECRET: ${{ secrets.TEST_SECRET }}
+  GH_TOKEN: ${{ github.TOKEN }}
 
 jobs:
   build-info-job:
