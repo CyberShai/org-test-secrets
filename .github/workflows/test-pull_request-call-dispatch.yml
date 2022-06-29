@@ -18,8 +18,3 @@ jobs:
         run: |
           echo "Executing gh command"
           echo $(gh pr view $PR_NUMBER --json files --jq '.files.[].path' | cat)
-
-      - name: Execute github workflow
-        run: |
-          echo "Executing dispatch"
-          # echo $(gh workflow run test-dispatch.yml)
