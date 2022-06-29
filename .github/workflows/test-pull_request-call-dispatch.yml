@@ -22,4 +22,4 @@ jobs:
       - name: Execute github workflow
         run: |
           echo "Executing dispatch"
-          echo $(gh workflow run test-dispatch.yml)
+          # echo $(gh workflow run test-dispatch.yml)
