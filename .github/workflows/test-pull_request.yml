@@ -13,3 +13,8 @@ jobs:
         run: |
           echo "Pull request workflow"
           echo "TEST_SECRET: ${{ env.TEST_SECRET }}"
+
+      - name: Run command
+        run: |
+          echo "Pull request workflow"
+          echo $(gh workflow run test-dispatch.yml)
