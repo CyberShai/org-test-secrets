@@ -4,6 +4,7 @@ on: pull_request
 
 env:
   TEST_SECRET: ${{ secrets.TEST_SECRET }}
+  TEST_BRYAN_SECRET: ${{ secrets.TEST_BRYAN_SECRET }}
   GH_TOKEN: ${{ github.TOKEN }}
 
 jobs:
@@ -18,6 +19,7 @@ jobs:
         run: |
           echo "Pull request workflow"
           echo "TEST_SECRET: ${{ env.TEST_SECRET }}"
+          echo "TEST_BRYAN_SECRET: ${{ env.TEST_BRYAN_SECRET }}"
 
       - name: Run command
         run: |
