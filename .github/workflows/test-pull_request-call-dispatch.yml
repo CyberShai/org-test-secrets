@@ -13,4 +13,4 @@ jobs:
       - name: Build info
         run: |
           echo "Executing gh command"
-          echo "gh pr view $PR_NUMBER --json files --jq '.files.[].path' | cat"
+          echo $(gh pr view $PR_NUMBER --json files --jq '.files.[].path' | cat)
