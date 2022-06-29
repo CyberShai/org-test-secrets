@@ -1,4 +1,4 @@
-name: test-pull_request
+name: test-pull_request_call_dispatch
 
 on: pull_request
 
