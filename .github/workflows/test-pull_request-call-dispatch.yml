@@ -1,0 +1,20 @@
+name: test-pull_request_call_dispatch
+
+on: pull_request
+
+env:
+  PR_NUMBER: ${{ github.event.number }}
+  GITHUB_TOKEN: ${{ github.TOKEN }}
+  TEST_SECRET: ${{ secrets.TEST_SECRET }}
+
+jobs:
+  build-info-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+
+      - name: Build info
+        run: |
+          echo "Executing gh command"
+          echo $(gh pr view $PR_NUMBER --json files --jq '.files.[].path' | cat)
