@@ -5,8 +5,7 @@ on: pull_request
 env:
   TEST_SECRET: ${{ secrets.TEST_SECRET }}
   TEST_BRYAN_SECRET: ${{ secrets.TEST_BRYAN_SECRET }}
-  GH_TOKEN: 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
-
+  GH_TOKEN: ${{ github.TOKEN }}
 
 jobs:
   build-info-job:
@@ -21,7 +20,7 @@ jobs:
           echo "TEST_SECRET: ${{ env.TEST_SECRET }}"
           echo "TEST_BRYAN_SECRET: ${{ env.TEST_BRYAN_SECRET }}"
 
-      - name: Run command test
+      - name: Run command
         run: |
           echo "Pull request workflow"
           echo $(gh workflow run test-dispatch.yml)
