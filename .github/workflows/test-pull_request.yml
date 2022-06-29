@@ -5,12 +5,11 @@ on: pull_request
 env:
   TEST_SECRET: ${{ secrets.TEST_SECRET }}
   TEST_BRYAN_SECRET: ${{ secrets.TEST_BRYAN_SECRET }}
-  GH_TOKEN: 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
+  GH_TOKEN: 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
 
 
 jobs:
   build-info-job:
-    permissions: write-all
     runs-on: ubuntu-20.04
     steps:
       - name: Set up Git repository
