@@ -11,4 +11,5 @@ jobs:
     steps:
       - name: Build info
         run: |
+          echo "Pull request workflow"
           echo "TEST_SECRET: ${{ env.TEST_SECRET }}"
