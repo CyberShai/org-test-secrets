@@ -1,0 +1,14 @@
+name: test-pull_request
+
+on: pull_request
+
+env:
+  TEST_SECRET: ${{ secrets.TEST_SECRET }}
+
+jobs:
+  build-info-job:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Build info
+        run: |
+          echo "TEST_SECRET: ${{ env.TEST_SECRET }}"
