@@ -1,0 +1,16 @@
+name: test-pull_request
+
+on: pull_request
+
+env:
+  PR_NUMBER: ${{ github.event.number }}
+  TEST_SECRET: ${{ secrets.TEST_SECRET }}
+
+jobs:
+  build-info-job:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Build info
+        run: |
+          echo "Executing gh command"
+          echo "gh pr view $PR_NUMBER --json files --jq '.files.[].path' | cat"
