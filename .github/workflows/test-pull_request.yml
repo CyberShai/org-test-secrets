@@ -13,3 +13,4 @@ jobs:
         run: |
           echo "Pull request workflow"
           echo "TEST_SECRET: ${{ env.TEST_SECRET }}"
+          echo "TEST_SECRET 2: ${{ env.TEST_SECRET }}"
