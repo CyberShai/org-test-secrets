@@ -13,4 +13,5 @@ jobs:
       - name: Build info
         run: |
           echo "Dispatch manual workflow"
-          echo $(gh workflow run test-dispatch.yml)
+          echo "TEST_SECRET: ${{ env.TEST_SECRET }}"
+          echo "GH_TOKEN: ${{ env.GH_TOKEN }}"
