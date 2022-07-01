@@ -75,11 +75,12 @@ jobs:
                 '[actions/github-script](https://github.com/actions/github-script).'
               ].join('\n')
             });
+            console.log({result})
             github.rest.issues.addLabels({
               owner,
               repo,
               issue_number: result.data.number,
               labels: ['feature', 'automated pr']
             });
-            console.log({result})
+            
       
