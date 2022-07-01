@@ -51,6 +51,8 @@ jobs:
   
   create-pull-request:
     if: "!startsWith(github.head_ref, 'integration/')"
+    outputs:
+      current_pr: ${{ steps.create_pr.outputs.result }}
     permissions:
       pull-requests: write
       security-events: write
@@ -85,7 +87,10 @@ jobs:
             return pr;
           
       - name: Get value from number
-        run: echo "PR ${{steps.create_pr.outputs.result}}"
+        id: value_pr
+        run: | 
+          echo "PR ${{steps.create_pr.outputs.result}}"
+
               
   
   reopen-pull-request:
@@ -100,4 +105,7 @@ jobs:
         with:
           token: ${{ env.GH_TOKEN }}
       
+      - name: Test PR
+        run: |
+          echo "current_pr: ${{needs.create-pull-request.outputs.current_pr}}"
       
