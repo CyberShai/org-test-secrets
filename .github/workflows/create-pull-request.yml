@@ -30,8 +30,7 @@ jobs:
           echo "INTEGRATION_BRANCH_NAME=$INTEGRATION_BRANCH_NAME"
 
           echo "::set-output name=current_branch::$CURRENT_BRANCH_NAME"
-          echo "::set-output name=current_branch::$INTEGRATION_BRANCH_NAME"
-
+          echo "::set-output name=integration_branch::$INTEGRATION_BRANCH_NAME"
 
   create-pull-request:
     runs-on: ubuntu-20.04
