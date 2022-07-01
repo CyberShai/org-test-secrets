@@ -17,10 +17,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create branch name
+        id: branch-name
         shell: bash
         run: |
           BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)
           echo "BRANCH_NAME = $BRANCH_NAME"
+          echo "::set-output name=branch_name::$BRANCH_NAME"
+
 
 
   create-pull-request:
@@ -29,7 +32,8 @@ jobs:
     steps:
       - name: Get value
         run: |
-          echo "Branch name: $BRANCH_NAME"
+          echo "Branch name: ${{ jobs.create-integration-branch.steps.branch-name.outputs.branch_name }}"
+
 
   
   
