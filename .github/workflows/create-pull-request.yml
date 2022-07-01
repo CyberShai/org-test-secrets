@@ -29,7 +29,7 @@ jobs:
           echo "::set-output name=current_branch::$CURRENT_BRANCH_NAME"
           echo "::set-output name=integration_branch::$INTEGRATION_BRANCH_NAME"
 
-  create_integration_branch: ## TODO: Si el proceso falla, se debería eliminar la rama creada
+  create_integration_branch: ## TODO: Si el proceso falla, se debería eliminar la rama creada 
     runs-on: ubuntu-20.04
     needs: get_branch_info
     
