@@ -53,8 +53,6 @@ jobs:
           git commit -m "Test commit"
           git push origin ${{needs.get_branch_info.outputs.integration_branch_name}}
           
-
-  
   create-pull-request:
     if: "!startsWith(github.head_ref, 'integration/')"
     permissions:
@@ -90,20 +88,25 @@ jobs:
         run: |
           echo 'testFile'>>testFile
 
-      - name: Create commit
-        uses: actions/github-script@v6
+  create_commit: ## TODO: Si el proceso falla, se debería eliminar la rama creada 
+    if: "!startsWith(github.head_ref, 'integration/')"
+    runs-on: ubuntu-20.04
+    needs: [get_branch_info, create-pull-request]
+    steps: 
+      - name: Set up Git repository
+        uses: actions/checkout@v2
         with:
-          script: |
-            const { repo, owner } = context.repo;
-
-            github.rest.git.createCommit({
-              owner,
-              repo,
-              message: 'Message',
-              tree: '${{ github.sha }}',
-              'GitHub Actions',
-              'noreply@github.com'
-            })
+          token: ${{ env.GH_TOKEN }}
+  
+      - name: Initialize mandatory git config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email noreply@github.com
       
-
-      
+      - name: Create release branch
+        run: |
+          git checkout ${{needs.get_branch_info.outputs.integration_branch_name}}
+          echo 'testfile'>>testFile
+          git add -A
+          git commit -m "Test commit"
+          git push
