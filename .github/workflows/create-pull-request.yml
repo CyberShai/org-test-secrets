@@ -17,18 +17,19 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create branch name
+        shell: bash
         run: |
           BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)
           echo "BRANCH_NAME = $BRANCH_NAME"
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
 
   create-pull-request:
     runs-on: ubuntu-20.04
+    needs: create-integration-branch
     steps:
       - name: Get value
         run: |
-          echo "Branch name: ${{env.BRANCH_NAME}}"
+          echo "Branch name: $BRANCH_NAME"
 
   
   
