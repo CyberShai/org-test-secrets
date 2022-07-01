@@ -86,7 +86,6 @@ jobs:
               labels: ['feature', 'automated pr']
             });
       
-      
   create_commit: ## TODO: Si el proceso falla, se debería eliminar la rama creada 
       if: "!startsWith(github.head_ref, 'integration/')"
       runs-on: ubuntu-20.04
