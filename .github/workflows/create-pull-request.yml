@@ -82,5 +82,18 @@ jobs:
               issue_number: result.data.number,
               labels: ['feature', 'automated pr']
             });
+
+  reopen-pull-request:
+    if: "!startsWith(github.head_ref, 'integration/')"
+    permissions:
+      pull-requests: write
+    needs: [create-pull-request]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Close PR
+        run: echo $(gh pr close 3)
+
+      - name: Reopen PR
+        run: echo $(gh pr close 5)
             
       
