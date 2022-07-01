@@ -13,3 +13,5 @@ jobs:
         run: |
           echo "Dispatch workflow"
           echo "GH_TOKEN: ${{ env.GH_TOKEN }}"
+          echo "head: ${{ github.ref_name }}"
+
