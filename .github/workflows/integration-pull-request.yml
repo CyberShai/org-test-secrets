@@ -1,16 +1,20 @@
 name: integration test
 
-on: pull_request
+on:
+  pull_request:
+    types:
+      - opened
+    branches:    
+      - 'integration/**'
 
 # env:
 #   TEST_SECRET: ${{ secrets.TEST_SECRET }}
 #   GH_TOKEN: ${{ secrets.TEST_GH_TOKEN }}
   
 jobs:
-  validate:
-    if: startsWith(github.head_ref, 'integration/')
-    runs-on: ubuntu-latest  
+  build-info-job:
+    runs-on: ubuntu-20.04
     steps:
-      - run: echo "Validate..."
-
-
+      - name: Build info
+        run: |
+          echo "Integration workflow"
