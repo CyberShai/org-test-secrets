@@ -81,4 +81,5 @@ jobs:
               issue_number: result.data.number,
               labels: ['feature', 'automated pr']
             });
+            console.log({result})
       
