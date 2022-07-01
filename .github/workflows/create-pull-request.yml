@@ -58,8 +58,6 @@ jobs:
       security-events: write
     needs: [get_branch_info, create_integration_branch]
     runs-on: ubuntu-20.04
-    outputs:
-      pr_created: ${{ steps.create_pull_request.outputs.pr }}
     steps:
       - name: Create Pull Request
       - id: create_pull_request
@@ -85,8 +83,6 @@ jobs:
               issue_number: result.data.number,
               labels: ['feature', 'automated pr']
             });
-            return pr;
-        run: |
-          echo "::set-output name=pr::${{steps.create_pull_request.outputs.result}}"
+            return pr
 
   
