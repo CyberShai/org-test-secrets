@@ -10,15 +10,12 @@ env:
   PR_NUMBER: ${{ github.event.number }}
 
 jobs:
-  create_integration_branch:
+  get_branch_info:
     outputs:
       current_branch_name: ${{ steps.branch_name.outputs.current_branch }}
       integration_branch_name: ${{ steps.branch_name.outputs.integration_branch }}
     runs-on: ubuntu-20.04
     steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v2
-
       - name: Create branch name
         id: branch_name
         shell: bash
@@ -32,14 +29,32 @@ jobs:
           echo "::set-output name=current_branch::$CURRENT_BRANCH_NAME"
           echo "::set-output name=integration_branch::$INTEGRATION_BRANCH_NAME"
 
+  create_integration_branch:
+    runs-on: ubuntu-20.04
+    needs: get_branch_info
+    steps: 
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+  
+      - name: Create release branch
+        run: |
+          git checkout -b ${{needs.get_branch_info.outputs.current_branch_name}}
+      
+      - name: Initialize mandatory git config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email noreply@github.com
+  
+  
+  
   create-pull-request:
     runs-on: ubuntu-20.04
-    needs: create_integration_branch
+    needs: [get_branch_info, create_integration_branch]
     steps:
       - name: Get value
         run: |
-          echo "Current Branch name: ${{needs.create_integration_branch.outputs.current_branch_name}}"
-          echo "Integration Branch name: ${{needs.create_integration_branch.outputs.integration_branch_name}}"
+          echo "Current Branch name: ${{needs.get_branch_info.outputs.current_branch_name}}"
+          echo "Integration Branch name: ${{needs.get_branch_info.outputs.integration_branch_name}}"
 
 
   
