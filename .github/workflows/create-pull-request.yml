@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           CURRENT_BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)
-          INTEGRATION_BRANCH_NAME="integration/${{env.PR_NUMBER}}-$CURRENT_BRANCH_NAME"
+          INTEGRATION_BRANCH_NAME="integration/${{env.PR_NUMBER}}-$CURRENT_BRANCH_NAME-test"
           
           echo "CURRENT_BRANCH_NAME=$CURRENT_BRANCH_NAME"
           echo "INTEGRATION_BRANCH_NAME=$INTEGRATION_BRANCH_NAME"
