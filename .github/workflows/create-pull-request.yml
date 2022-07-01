@@ -75,7 +75,7 @@ jobs:
                 '[actions/github-script](https://github.com/actions/github-script).'
               ].join('\n')
             });
-            console.log({result})
+            console.log({PR: result.data.number})
             github.rest.issues.addLabels({
               owner,
               repo,
