@@ -1,7 +1,9 @@
-name: test-dispatch-2
+name: integration test
 
-on: 
+on:
   pull_request:
+    types:
+      - opened
     branches:    
       - 'integration/**'
 
