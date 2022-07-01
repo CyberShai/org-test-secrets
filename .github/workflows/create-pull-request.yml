@@ -24,8 +24,9 @@ jobs:
         id: branch_name
         shell: bash
         run: |
-          echo "BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)"
-          echo "::set-output name=branch::$(echo ${GITHUB_HEAD_REF} | tr / -)"
+          BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)
+          echo "BRANCH_NAME=$BRANCH_NAME"
+          echo "::set-output name=branch::$BRANCH_NAME"
           echo "::set-output name=test::hello"
 
 
@@ -35,7 +36,7 @@ jobs:
     steps:
       - name: Get value
         run: |
-          echo "Branch name: ${{needs.create_integration_branch.outputs.branch}}"
+          echo "Branch name: ${{needs.create_integration_branch.outputs.branch_name}}"
           echo ${{needs.create_integration_branch.outputs.output1}}
 
 
