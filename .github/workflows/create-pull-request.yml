@@ -22,7 +22,7 @@ jobs:
         shell: bash
         run: |
           CURRENT_BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)
-          INTEGRATION_BRANCH_NAME="integration/${{env.PR_NUMBER}}-$CURRENT_BRANCH_NAME-2"
+          INTEGRATION_BRANCH_NAME="integration/${{env.PR_NUMBER}}-$CURRENT_BRANCH_NAME"
           
           echo "CURRENT_BRANCH_NAME=$CURRENT_BRANCH_NAME"
           echo "INTEGRATION_BRANCH_NAME=$INTEGRATION_BRANCH_NAME"
@@ -49,7 +49,8 @@ jobs:
         run: |
           git checkout -b ${{needs.get_branch_info.outputs.integration_branch_name}}
           git push origin ${{needs.get_branch_info.outputs.integration_branch_name}}
-          
+      
+  
   create-pull-request:
     if: "!startsWith(github.head_ref, 'integration/')"
     permissions:
@@ -80,31 +81,4 @@ jobs:
               issue_number: result.data.number,
               labels: ['feature', 'automated pr']
             });
-
-      - name: Create simple file
-        run: |
-          echo 'testFile'>>testFile
-
-  create_commit: ## TODO: Si el proceso falla, se debería eliminar la rama crea
-    if: "!startsWith(github.head_ref, 'integration/')"
-    runs-on: ubuntu-20.04
-    needs: [get_branch_info, create-pull-request]
-    steps: 
-      - name: Set up Git repository
-        uses: actions/checkout@v2
-        with:
-          token: ${{ env.GH_TOKEN }}
-  
-      - name: Initialize mandatory git config
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email noreply@github.com
       
-      - name: Create release branch
-        run: |
-          git fetch --all
-          git checkout ${{needs.get_branch_info.outputs.integration_branch_name}}
-          echo 'testfile'>>testFile
-          git add -A
-          git commit -m "Test commit"
-          git push
