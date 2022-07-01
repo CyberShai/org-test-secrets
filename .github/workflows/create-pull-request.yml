@@ -91,8 +91,6 @@ jobs:
         run: | 
           echo "PR ${{steps.create_pr.outputs.result}}"
 
-              
-  
   close-pull-request:
     if: "!startsWith(github.head_ref, 'integration/')"
     permissions:
@@ -116,7 +114,7 @@ jobs:
     if: "!startsWith(github.head_ref, 'integration/')"
     permissions:
       pull-requests: write
-    needs: [create-pull-request]
+    needs: [create-pull-request, close-pull-request]
     runs-on: ubuntu-20.04
     steps:
       - name: Set up Git repository
