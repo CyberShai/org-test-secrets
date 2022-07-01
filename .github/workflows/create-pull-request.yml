@@ -18,16 +18,8 @@ jobs:
 
   create-pull-request:
     permissions:
-      actions: write
-      checks: write
-      contents: write
-      deployments: write
-      issues: write
-      packages: write
       pull-requests: write
-      repository-projects: write
       security-events: write
-      statuses: write
     runs-on: ubuntu-20.04
     steps:
       - name: Create Pull Request
