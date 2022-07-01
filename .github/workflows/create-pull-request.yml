@@ -89,14 +89,4 @@ jobs:
         run: |
           echo "::set-output name=pr::${{steps.create_pull_request.outputs.result}}"
 
-  reopen-pull-request:
-    if: "!startsWith(github.head_ref, 'integration/')"
-    permissions:
-      pull-requests: write
-    needs: [create_pull_request]
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Get PR value
-        run: |
-          echo "Test: ${{needs.create_pull_request.outputs.pr}}"
-      
+  
