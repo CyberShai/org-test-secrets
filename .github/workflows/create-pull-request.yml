@@ -51,15 +51,18 @@ jobs:
           git push origin ${{needs.get_branch_info.outputs.integration_branch_name}}
       
   
-  create-pull-request:
+  create_pull_request:
     if: "!startsWith(github.head_ref, 'integration/')"
     permissions:
       pull-requests: write
       security-events: write
     needs: [get_branch_info, create_integration_branch]
     runs-on: ubuntu-20.04
+    outputs:
+      pr_created: ${{ steps.create_pull_request.outputs.pr }}
     steps:
       - name: Create Pull Request
+      - id: create_pull_request
         uses: actions/github-script@v6
         with:
           script: |
@@ -75,19 +78,22 @@ jobs:
                 '[actions/github-script](https://github.com/actions/github-script).'
               ].join('\n')
             });
-            console.log({PR: result.data.number})
+            const pr = result.data.number;
             github.rest.issues.addLabels({
               owner,
               repo,
               issue_number: result.data.number,
               labels: ['feature', 'automated pr']
             });
+            return pr;
+        run: |
+          echo "::set-output name=pr::${{steps.create_pull_request.outputs.result}}"
 
   reopen-pull-request:
     if: "!startsWith(github.head_ref, 'integration/')"
     permissions:
       pull-requests: write
-    needs: [create-pull-request]
+    needs: [create_pull_request]
     runs-on: ubuntu-20.04
     steps:
       - name: Set up Git repository
@@ -95,10 +101,14 @@ jobs:
         with:
           token: ${{ env.GH_TOKEN }}
       
-      - name: Close PR
-        run: echo $(gh pr close 3)
+      - name: Get PR value
+        run: |
+          echo "Test: ${{needs.create_pull_request.outputs.pr}}"
 
-      - name: Reopen PR
-        run: echo $(gh pr close 5)
+      # - name: Close PR
+      #   run: echo $(gh pr close 3)
+
+      # - name: Reopen PR
+      #   run: echo $(gh pr close 5)
             
       
