@@ -32,20 +32,23 @@ jobs:
   create_integration_branch:
     runs-on: ubuntu-20.04
     needs: get_branch_info
+    permissions:
+      repository-projects: write
     steps: 
       - name: Set up Git repository
         uses: actions/checkout@v2
   
-      - name: Create release branch
-        run: |
-          git checkout -b ${{needs.get_branch_info.outputs.current_branch_name}}
-      
       - name: Initialize mandatory git config
         run: |
           git config user.name "GitHub Actions"
           git config user.email noreply@github.com
-  
-  
+      
+      - name: Create release branch
+        run: |
+          git checkout -b ${{needs.get_branch_info.outputs.integration_branch_name}}
+          git push origin ${{needs.get_branch_info.outputs.integration_branch_name}}
+      
+      
   
   create-pull-request:
     runs-on: ubuntu-20.04
