@@ -48,9 +48,6 @@ jobs:
       - name: Create release branch
         run: |
           git checkout -b ${{needs.get_branch_info.outputs.integration_branch_name}}
-          echo 'testfile'>>testFile
-          git add -A
-          git commit -m "Test commit"
           git push origin ${{needs.get_branch_info.outputs.integration_branch_name}}
           
   create-pull-request:
