@@ -109,5 +109,5 @@ jobs:
         run: echo $(gh pr close ${{needs.create-pull-request.outputs.current_pr}})
 
       - name: Reopen PR
-        run: echo $(gh pr close ${{needs.create-pull-request.outputs.current_pr}})
+        run: echo $(gh pr reopen ${{needs.create-pull-request.outputs.current_pr}})
       
