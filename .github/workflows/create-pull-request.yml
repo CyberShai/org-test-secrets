@@ -88,7 +88,7 @@ jobs:
         run: |
           echo 'testFile'>>testFile
 
-  create_commit: ## TODO: Si el proceso falla, se debería eliminar la rama creada 
+  create_commit: ## TODO: Si el proceso falla, se debería eliminar la rama crea
     if: "!startsWith(github.head_ref, 'integration/')"
     runs-on: ubuntu-20.04
     needs: [get_branch_info, create-pull-request]
