@@ -54,11 +54,9 @@ jobs:
     permissions:
       pull-requests: write
       security-events: write
+    needs: [get_branch_info, create_integration_branch]
     runs-on: ubuntu-20.04
     steps:
-      
-
-
       - name: Create Pull Request
         uses: actions/github-script@v6
         with:
