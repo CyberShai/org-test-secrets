@@ -45,6 +45,7 @@ jobs:
       
       - name: Create release branch
         run: |
+          git remote set-url origin https://x-access-token:${{ env.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git checkout -b ${{needs.get_branch_info.outputs.integration_branch_name}}
           git push origin ${{needs.get_branch_info.outputs.integration_branch_name}}
       
