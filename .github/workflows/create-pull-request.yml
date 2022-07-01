@@ -104,7 +104,7 @@ jobs:
         - name: Create commit
           run: |
             echo "Branch: ${{needs.get_branch_info.outputs.integration_branch_name}}"
-            git checkout -b ${{needs.get_branch_info.outputs.integration_branch_name}}
+            git checkout ${{needs.get_branch_info.outputs.integration_branch_name}}
             echo 'testfile'>>testFile
             git add -A
             git commit -m "Test commit"
