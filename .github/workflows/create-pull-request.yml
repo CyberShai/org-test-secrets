@@ -7,14 +7,13 @@ on:
 
 env:
   GH_TOKEN: ${{ github.TOKEN }}
-  BRANCH_NAME: ""
+  PR_NUMBER: ${{ github.event.number }}
 
 jobs:
   create_integration_branch:
     outputs:
-      branch_name: ${{ steps.branch_name.outputs.branch }}
-      output1: ${{ steps.branch_name.outputs.test }}
-
+      current_branch_name: ${{ steps.branch_name.outputs.current_branch }}
+      integration_branch_name: ${{ steps.branch_name.outputs.integration_branch }}
     runs-on: ubuntu-20.04
     steps:
       - name: Set up Git repository
@@ -24,10 +23,14 @@ jobs:
         id: branch_name
         shell: bash
         run: |
-          BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)
-          echo "BRANCH_NAME=$BRANCH_NAME"
-          echo "::set-output name=branch::$BRANCH_NAME"
-          echo "::set-output name=test::hello"
+          CURRENT_BRANCH_NAME=$(echo ${GITHUB_HEAD_REF} | tr / -)
+          INTEGRATION_BRANCH_NAME="integration/${{env.PR_NUMBER}}-$CURRENT_BRANCH_NAME"
+          
+          echo "CURRENT_BRANCH_NAME=$CURRENT_BRANCH_NAME"
+          echo "INTEGRATION_BRANCH_NAME=$INTEGRATION_BRANCH_NAME"
+
+          echo "::set-output name=current_branch::$CURRENT_BRANCH_NAME"
+          echo "::set-output name=current_branch::$INTEGRATION_BRANCH_NAME"
 
 
   create-pull-request:
@@ -36,8 +39,8 @@ jobs:
     steps:
       - name: Get value
         run: |
-          echo "Branch name: ${{needs.create_integration_branch.outputs.branch_name}}"
-          echo ${{needs.create_integration_branch.outputs.output1}}
+          echo "Current Branch name: ${{needs.create_integration_branch.outputs.current_branch_name}}"
+          echo "Integration Branch name: ${{needs.create_integration_branch.outputs.integration_branch_name}}"
 
 
   
