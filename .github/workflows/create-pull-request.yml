@@ -36,7 +36,7 @@ jobs:
           script: |
             const { repo, owner } = context.repo;
             const result = await github.rest.pulls.create({
-              title: '[Example] Simple demo',
+              title: '[Example] Simple demo 2',
               owner,
               repo,
               head: '${{ env.BRANCH_NAME }}',
