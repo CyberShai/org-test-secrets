@@ -58,6 +58,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Create Pull Request
+        id: create_pr
         uses: actions/github-script@v6
         with:
           script: |
@@ -73,6 +74,7 @@ jobs:
                 '[actions/github-script](https://github.com/actions/github-script).'
               ].join('\n')
             });
+            const pr = result.data.number;
             console.log({PR: result.data.number})
             github.rest.issues.addLabels({
               owner,
@@ -80,6 +82,11 @@ jobs:
               issue_number: result.data.number,
               labels: ['feature', 'automated pr']
             });
+            return pr;
+          
+      - name: Get value from number
+        run: echo "PR ${{steps.create_pr.outputs.result}}"
+              
   
   reopen-pull-request:
     if: "!startsWith(github.head_ref, 'integration/')"
