@@ -90,8 +90,11 @@ jobs:
 
       - name: Create fake commit
         run: |
-          git checkout ${{needs.create-branch.outputs.new_branch}}
           echo Creating new commit
+          git checkout ${{needs.create-branch.outputs.new_branch}}
+          git commit --allow-empty -m "Empty-Commit"
+          git push origin ${{needs.create-branch.outputs.new_branch}}
+
 
 # Crear rama
 
