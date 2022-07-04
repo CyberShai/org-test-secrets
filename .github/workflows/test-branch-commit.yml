@@ -40,7 +40,7 @@ jobs:
 
       - name: Get branch
         run: |
-          echo git branch -a
+          git branch -a
 
       - name: Create fake commit
         run: |
