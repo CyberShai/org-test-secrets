@@ -88,13 +88,17 @@ jobs:
           git fetch --all    
           git branch -a
 
+      - name: Initialize mandatory git config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email noreply@github.com
+
       - name: Create fake commit
         run: |
           echo Creating new commit
           git checkout ${{needs.create-branch.outputs.new_branch}}
           git commit --allow-empty -m "Empty-Commit"
           git push origin ${{needs.create-branch.outputs.new_branch}}
-
 
 # Crear rama
 
