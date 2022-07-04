@@ -1,6 +1,6 @@
 name: integration test
 
-on: workflow_dispatch
+on: pull_request
 
 # env:
 #   TEST_SECRET: ${{ secrets.TEST_SECRET }}
