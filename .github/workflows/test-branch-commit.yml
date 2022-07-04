@@ -114,7 +114,7 @@ jobs:
           git checkout -b integration/test-2-3
           git rebase origin/test-branch-pr
           git commit --allow-empty -m "Empty-Commit"
-          git push origin integration/test-2-3
+          git push origin integration/test-2-3 --force
           gh pr create --title "The bug is fixed" --body "Everything works again"
 
 
