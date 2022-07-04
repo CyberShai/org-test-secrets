@@ -38,8 +38,14 @@ jobs:
         with:
           token: ${{ env.GH_TOKEN }}
 
-      - name: Get branch
+      - name: Get branch without update
         run: |
+          git branch -a
+      
+      - name: Get branch with update
+        run: |
+          git fetch -p 
+          git fetch --all    
           git branch -a
 
       - name: Create fake commit
