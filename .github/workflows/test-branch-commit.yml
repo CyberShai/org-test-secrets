@@ -30,6 +30,7 @@ jobs:
           git checkout -b ${{ steps.new_branch.outputs.branch }}
           git push origin ${{ steps.new_branch.outputs.branch }}
 
+
   open-pull-request:
     if: "!startsWith(github.head_ref, 'integration/')"
     runs-on: ubuntu-latest
@@ -99,6 +100,16 @@ jobs:
           git checkout ${{needs.create-branch.outputs.new_branch}}
           git commit --allow-empty -m "Empty-Commit"
           git push origin ${{needs.create-branch.outputs.new_branch}}
+
+      - name: Create branch from master
+        run: |
+          echo "New branch from master: integration/test-2-3"
+          git checkout main
+          git checkout -b integration/test-2-3
+          git rebase test-branch-pr
+          git push origin integration/test-2-3
+          gh pr create --title "The bug is fixed" --body "Everything works again"
+
 
 # Crear rama
 
